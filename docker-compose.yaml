@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db:
+    image: "postgres:16.4-bullseye"
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - authdb:/var/lib/postgresql/data
+    ports:
+      - 5430:5432
+  app:
+    image: "openjdk:17-alpine"
+    working_dir: /app
+    volumes:
+      - gralde_cache:/root/.gradle
+      - type: bind
+        source: .
+        target: /app
+    command: sh -c "chmod +x gradlew && ./gradlew bootRun"
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+volumes:
+  authdb:
+  gralde_cache:
