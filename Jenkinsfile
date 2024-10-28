@@ -3,8 +3,9 @@ pipeline {
   stages {
     stage('checkout') {
       steps {
-        sh '''git checkout main
-git pull origin main'''
+        sh '''sh \'git checkout main\'
+sh \'git pull origin main\'
+'''
       }
     }
 
